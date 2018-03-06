@@ -1,4 +1,4 @@
-package com.yqritc.recyclerviewmultipleviewtypesadapter;
+package com.rjsvieira.recyclerviewmultipleviewtypesadapter;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -6,16 +6,17 @@ import java.util.Map;
 /**
  * Adapter class for managing data binders by mapping enum view type and data binder
  *
- * Created by yqritc on 2015/03/25.
+ * Created by yqritc on 2015/03/25, modified by rjsvieira.
  */
+
 public abstract class EnumMapBindAdapter<E extends Enum<E>> extends DataBindAdapter {
 
-    private Map<E, DataBinder> mBinderMap = new HashMap<>();
+    private Map<E, DataBinder> binderMap = new HashMap<>();
 
     @Override
     public int getItemCount() {
         int itemCount = 0;
-        for (DataBinder binder : mBinderMap.values()) {
+        for (DataBinder binder : binderMap.values()) {
             itemCount += binder.getItemCount();
         }
         return itemCount;
@@ -87,7 +88,7 @@ public abstract class EnumMapBindAdapter<E extends Enum<E>> extends DataBindAdap
     public abstract E getEnumFromOrdinal(int ordinal);
 
     public E getEnumFromBinder(DataBinder binder) {
-        for (Map.Entry<E, DataBinder> entry : mBinderMap.entrySet()) {
+        for (Map.Entry<E, DataBinder> entry : binderMap.entrySet()) {
             if (entry.getValue().equals(binder)) {
                 return entry.getKey();
             }
@@ -96,14 +97,15 @@ public abstract class EnumMapBindAdapter<E extends Enum<E>> extends DataBindAdap
     }
 
     public <T extends DataBinder> T getDataBinder(E e) {
-        return (T) mBinderMap.get(e);
+        return (T) binderMap.get(e);
     }
 
     public Map<E, DataBinder> getBinderMap() {
-        return mBinderMap;
+        return binderMap;
     }
 
     public void putBinder(E e, DataBinder binder) {
-        mBinderMap.put(e, binder);
+        binderMap.put(e, binder);
     }
+
 }

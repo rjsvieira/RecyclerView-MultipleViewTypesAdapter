@@ -1,4 +1,4 @@
-package com.yqritc.recyclerviewmultipleviewtypesadapter;
+package com.rjsvieira.recyclerviewmultipleviewtypesadapter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -6,18 +6,19 @@ import java.util.List;
 
 /**
  * Adapter class for managing data binders when the order of binder is in sequence
- *
- * Created by yqritc on 2015/03/19.
+ * <p>
+ * Created by yqritc on 2015/03/19, modified by rjsvieira.
  */
+
 public class ListBindAdapter extends DataBindAdapter {
 
-    private List<DataBinder> mBinderList = new ArrayList<>();
+    private List<DataBinder> binderList = new ArrayList<>();
 
     @Override
     public int getItemCount() {
         int itemCount = 0;
-        for (int i = 0, size = mBinderList.size(); i < size; i++) {
-            DataBinder binder = mBinderList.get(i);
+        for (int i = 0, size = binderList.size(); i < size; i++) {
+            DataBinder binder = binderList.get(i);
             itemCount += binder.getItemCount();
         }
         return itemCount;
@@ -26,8 +27,8 @@ public class ListBindAdapter extends DataBindAdapter {
     @Override
     public int getItemViewType(int position) {
         int itemCount = 0;
-        for (int viewType = 0, size = mBinderList.size(); viewType < size; viewType++) {
-            itemCount += mBinderList.get(viewType).getItemCount();
+        for (int viewType = 0, size = binderList.size(); viewType < size; viewType++) {
+            itemCount += binderList.get(viewType).getItemCount();
             if (position < itemCount) {
                 return viewType;
             }
@@ -37,29 +38,27 @@ public class ListBindAdapter extends DataBindAdapter {
 
     @Override
     public <T extends DataBinder> T getDataBinder(int viewType) {
-        return (T) mBinderList.get(viewType);
+        return (T) binderList.get(viewType);
     }
 
     @Override
     public int getPosition(DataBinder binder, int binderPosition) {
-        int viewType = mBinderList.indexOf(binder);
+        int viewType = binderList.indexOf(binder);
         if (viewType < 0) {
             throw new IllegalStateException("binder does not exist in adapter");
         }
-
         int position = binderPosition;
         for (int i = 0; i < viewType; i++) {
-            position += mBinderList.get(i).getItemCount();
+            position += binderList.get(i).getItemCount();
         }
-
         return position;
     }
 
     @Override
     public int getBinderPosition(int position) {
         int binderItemCount;
-        for (int i = 0, size = mBinderList.size(); i < size; i++) {
-            binderItemCount = mBinderList.get(i).getItemCount();
+        for (int i = 0, size = binderList.size(); i < size; i++) {
+            binderItemCount = binderList.get(i).getItemCount();
             if (position - binderItemCount < 0) {
                 break;
             }
@@ -84,18 +83,18 @@ public class ListBindAdapter extends DataBindAdapter {
     }
 
     public List<DataBinder> getBinderList() {
-        return mBinderList;
+        return binderList;
     }
 
     public void addBinder(DataBinder binder) {
-        mBinderList.add(binder);
+        binderList.add(binder);
     }
 
     public void addAllBinder(List<DataBinder> dataSet) {
-        mBinderList.addAll(dataSet);
+        binderList.addAll(dataSet);
     }
 
     public void addAllBinder(DataBinder... dataSet) {
-        mBinderList.addAll(Arrays.asList(dataSet));
+        binderList.addAll(Arrays.asList(dataSet));
     }
 }

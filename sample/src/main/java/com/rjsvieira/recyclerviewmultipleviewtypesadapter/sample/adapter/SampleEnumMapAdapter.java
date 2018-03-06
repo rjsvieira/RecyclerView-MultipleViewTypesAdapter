@@ -1,17 +1,13 @@
-package com.yqritc.recyclerviewmultipleviewtypesadapter.sample.adapter;
+package com.rjsvieira.recyclerviewmultipleviewtypesadapter.sample.adapter;
 
-
-import com.yqritc.recyclerviewmultipleviewtypesadapter.EnumMapBindAdapter;
-import com.yqritc.recyclerviewmultipleviewtypesadapter.sample.SampleData;
-import com.yqritc.recyclerviewmultipleviewtypesadapter.sample.binder.Sample1Binder;
-import com.yqritc.recyclerviewmultipleviewtypesadapter.sample.binder.Sample2Binder;
-import com.yqritc.recyclerviewmultipleviewtypesadapter.sample.binder.Sample3Binder;
+import com.rjsvieira.recyclerviewmultipleviewtypesadapter.EnumMapBindAdapter;
+import com.rjsvieira.recyclerviewmultipleviewtypesadapter.sample.SampleData;
+import com.rjsvieira.recyclerviewmultipleviewtypesadapter.sample.binder.Sample1Binder;
+import com.rjsvieira.recyclerviewmultipleviewtypesadapter.sample.binder.Sample2Binder;
+import com.rjsvieira.recyclerviewmultipleviewtypesadapter.sample.binder.Sample3Binder;
 
 import java.util.List;
 
-/**
- * Created by yqritc on 2015/03/20.
- */
 public class SampleEnumMapAdapter extends EnumMapBindAdapter<SampleEnumMapAdapter.SampleViewType> {
 
     enum SampleViewType {
@@ -43,4 +39,5 @@ public class SampleEnumMapAdapter extends EnumMapBindAdapter<SampleEnumMapAdapte
     public SampleViewType getEnumFromOrdinal(int ordinal) {
         return SampleViewType.values()[ordinal];
     }
+
 }

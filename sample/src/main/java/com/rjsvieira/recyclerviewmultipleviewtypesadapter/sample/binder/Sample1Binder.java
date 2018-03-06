@@ -1,9 +1,4 @@
-package com.yqritc.recyclerviewmultipleviewtypesadapter.sample.binder;
-
-import com.squareup.picasso.Picasso;
-import com.yqritc.recyclerviewmultipleviewtypesadapter.DataBindAdapter;
-import com.yqritc.recyclerviewmultipleviewtypesadapter.DataBinder;
-import com.yqritc.recyclerviewmultipleviewtypesadapter.sample.R;
+package com.rjsvieira.recyclerviewmultipleviewtypesadapter.sample.binder;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,9 +7,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-/**
- * Created by yqritc on 2015/03/20.
- */
+import com.rjsvieira.recyclerviewmultipleviewtypesadapter.DataBindAdapter;
+import com.rjsvieira.recyclerviewmultipleviewtypesadapter.DataBinder;
+import com.rjsvieira.recyclerviewmultipleviewtypesadapter.sample.R;
+
+
 public class Sample1Binder extends DataBinder<Sample1Binder.ViewHolder> {
 
     public Sample1Binder(DataBindAdapter dataBindAdapter) {
@@ -31,9 +28,6 @@ public class Sample1Binder extends DataBinder<Sample1Binder.ViewHolder> {
     @Override
     public void bindViewHolder(ViewHolder holder, int position) {
         holder.mImageView.setImageResource(R.drawable.bird);
-        Picasso.with(holder.mImageView.getContext())
-                .load(R.drawable.bird)
-                .into(holder.mImageView);
     }
 
     @Override
@@ -54,4 +48,5 @@ public class Sample1Binder extends DataBinder<Sample1Binder.ViewHolder> {
             mContent = (TextView) view.findViewById(R.id.content_type1);
         }
     }
+
 }

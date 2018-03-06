@@ -1,6 +1,6 @@
-package com.yqritc.recyclerviewmultipleviewtypesadapter.sample;
+package com.rjsvieira.recyclerviewmultipleviewtypesadapter.sample;
 
-import com.yqritc.recyclerviewmultipleviewtypesadapter.sample.adapter.SampleEnumMapAdapter;
+import com.rjsvieira.recyclerviewmultipleviewtypesadapter.sample.adapter.SampleEnumMapAdapter;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

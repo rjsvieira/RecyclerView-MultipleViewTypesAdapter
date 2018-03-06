@@ -1,9 +1,4 @@
-package com.yqritc.recyclerviewmultipleviewtypesadapter.sample.binder;
-
-import com.squareup.picasso.Picasso;
-import com.yqritc.recyclerviewmultipleviewtypesadapter.DataBindAdapter;
-import com.yqritc.recyclerviewmultipleviewtypesadapter.DataBinder;
-import com.yqritc.recyclerviewmultipleviewtypesadapter.sample.R;
+package com.rjsvieira.recyclerviewmultipleviewtypesadapter.sample.binder;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.rjsvieira.recyclerviewmultipleviewtypesadapter.DataBindAdapter;
+import com.rjsvieira.recyclerviewmultipleviewtypesadapter.DataBinder;
+import com.rjsvieira.recyclerviewmultipleviewtypesadapter.sample.R;
 
 /**
  * Created by yqritc on 2015/03/20.
@@ -23,16 +22,13 @@ public class Sample3Binder extends DataBinder<Sample3Binder.ViewHolder> {
 
     @Override
     public ViewHolder newViewHolder(ViewGroup parent) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.layout_sample3, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_sample3, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void bindViewHolder(ViewHolder holder, int position) {
-        Picasso.with(holder.mImageView.getContext())
-                .load(R.drawable.lion)
-                .into(holder.mImageView);
+        holder.mImageView.setImageResource(R.drawable.bird);
     }
 
     @Override
@@ -53,4 +49,5 @@ public class Sample3Binder extends DataBinder<Sample3Binder.ViewHolder> {
             mContent = (TextView) view.findViewById(R.id.content_type3);
         }
     }
+
 }
