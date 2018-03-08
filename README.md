@@ -1,16 +1,10 @@
 # RecyclerView-MultipleViewTypeAdapter
 
-[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-MultipleViewTypesAdapter-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/1703)
 [![License](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
-[![Download](https://api.bintray.com/packages/yqritc/maven/recyclerview-multiple-viewtypes-adapter/images/download.svg)](https://bintray.com/yqritc/maven/recyclerview-multiple-viewtypes-adapter/_latestVersion)
 
 RecyclerView adapter classes for managing multiple view types
 
  ![Sample](/sample/sample.gif)
-
-# Release Note
-
-[Release Note] (https://github.com/yqritc/RecyclerView-MultipleViewTypesAdapter/releases)
 
 # Gradle
 ```
@@ -19,9 +13,16 @@ repositories {
 }
 
 dependencies {
-    compile 'com.yqritc:recyclerview-multiple-viewtypes-adapter:1.1.0'
+    compile 'com.rjsvieira:recyclerview-multiple-viewtypes-adapter:1.0.0'
 }
 ```
+
+# Fork
+
+This library stands as a fork of Yoshihito Ikeda's original (remarkable) repository.
+This fork contains additional changes and fixes and may not entirely represent the original.
+The package name was altered in order to prevent library clashing on bintray/jitpack integrations.
+
 
 # About this library
 

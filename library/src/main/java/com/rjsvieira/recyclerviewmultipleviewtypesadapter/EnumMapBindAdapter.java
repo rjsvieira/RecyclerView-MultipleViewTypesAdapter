@@ -5,7 +5,7 @@ import java.util.Map;
 
 /**
  * Adapter class for managing data binders by mapping enum view type and data binder
- *
+ * <p>
  * Created by yqritc on 2015/03/25, modified by rjsvieira.
  */
 
@@ -16,8 +16,10 @@ public abstract class EnumMapBindAdapter<E extends Enum<E>> extends DataBindAdap
     @Override
     public int getItemCount() {
         int itemCount = 0;
-        for (DataBinder binder : binderMap.values()) {
-            itemCount += binder.getItemCount();
+        if (this.binderMap != null && !this.binderMap.isEmpty()) {
+            for (DataBinder binder : binderMap.values()) {
+                itemCount += binder.getItemCount();
+            }
         }
         return itemCount;
     }
@@ -36,7 +38,7 @@ public abstract class EnumMapBindAdapter<E extends Enum<E>> extends DataBindAdap
     public int getPosition(DataBinder binder, int binderPosition) {
         E targetViewType = getEnumFromBinder(binder);
         for (int i = 0, count = getItemCount(); i < count; i++) {
-            if (targetViewType == getEnumFromPosition(i)) {
+            if (targetViewType != null && targetViewType == getEnumFromPosition(i)) {
                 binderPosition--;
                 if (binderPosition < 0) {
                     return i;
@@ -54,10 +56,6 @@ public abstract class EnumMapBindAdapter<E extends Enum<E>> extends DataBindAdap
             if (targetViewType == getEnumFromPosition(i)) {
                 binderPosition++;
             }
-        }
-
-        if (binderPosition == -1) {
-            throw new IllegalArgumentException("Invalid Argument");
         }
         return binderPosition;
     }
@@ -83,29 +81,40 @@ public abstract class EnumMapBindAdapter<E extends Enum<E>> extends DataBindAdap
         }
     }
 
+    @Override
+    protected void clearDataBinderAdapter() {
+        if (this.binderMap != null) {
+            this.binderMap.clear();
+        }
+    }
+
     public abstract E getEnumFromPosition(int position);
 
     public abstract E getEnumFromOrdinal(int ordinal);
-
-    public E getEnumFromBinder(DataBinder binder) {
-        for (Map.Entry<E, DataBinder> entry : binderMap.entrySet()) {
-            if (entry.getValue().equals(binder)) {
-                return entry.getKey();
-            }
-        }
-        throw new IllegalArgumentException("Invalid Data Binder");
-    }
-
-    public <T extends DataBinder> T getDataBinder(E e) {
-        return (T) binderMap.get(e);
-    }
 
     public Map<E, DataBinder> getBinderMap() {
         return binderMap;
     }
 
-    public void putBinder(E e, DataBinder binder) {
-        binderMap.put(e, binder);
+    protected void putBinder(E enumerator, DataBinder binder) {
+        if (this.binderMap != null && enumerator != null && binder != null) {
+            binderMap.put(enumerator, binder);
+        }
+    }
+
+    protected <T extends DataBinder> T getDataBinder(E e) {
+        return this.binderMap != null ? (T) binderMap.get(e) : null;
+    }
+
+    private E getEnumFromBinder(DataBinder binder) {
+        if (this.binderMap != null && !this.binderMap.isEmpty()) {
+            for (Map.Entry<E, DataBinder> entry : binderMap.entrySet()) {
+                if (entry.getValue().equals(binder)) {
+                    return entry.getKey();
+                }
+            }
+        }
+        return null;
     }
 
 }

@@ -5,58 +5,74 @@ import android.view.ViewGroup;
 
 /**
  * Class for binding view and data
- *
+ * <p>
  * Created by yqritc on 2015/03/01, modified by rjsvieira.
  */
 
-abstract public class DataBinder<T extends RecyclerView.ViewHolder> {
+public abstract class DataBinder<T extends RecyclerView.ViewHolder> {
 
     private DataBindAdapter dataBindAdapter;
 
-    public DataBinder(DataBindAdapter dataBindAdapter) {
+    protected DataBinder(DataBindAdapter dataBindAdapter) {
         this.dataBindAdapter = dataBindAdapter;
     }
 
-    abstract public T newViewHolder(ViewGroup parent);
+    protected abstract T newViewHolder(ViewGroup parent);
 
-    abstract public void bindViewHolder(T holder, int position);
+    protected abstract void bindViewHolder(T holder, int position);
 
-    abstract public int getItemCount();
+    protected abstract int getItemCount();
 
-    public final void notifyDataSetChanged() {
-        dataBindAdapter.notifyDataSetChanged();
+    protected void notifyDataSetChanged() {
+        if (this.dataBindAdapter != null) {
+            this.dataBindAdapter.notifyDataSetChanged();
+        }
     }
 
-    public final void notifyBinderDataSetChanged() {
+    protected void notifyBinderDataSetChanged() {
         notifyBinderItemRangeChanged(0, getItemCount());
     }
 
-    public final void notifyBinderItemChanged(int position) {
-        dataBindAdapter.notifyBinderItemChanged(this, position);
+    protected void notifyBinderItemChanged(int position) {
+        if (this.dataBindAdapter != null) {
+            this.dataBindAdapter.notifyBinderItemChanged(this, position);
+        }
     }
 
-    public final void notifyBinderItemRangeChanged(int positionStart, int itemCount) {
-        dataBindAdapter.notifyBinderItemRangeChanged(this, positionStart, itemCount);
+    protected void notifyBinderItemRangeChanged(int positionStart, int itemCount) {
+        if (this.dataBindAdapter != null) {
+            this.dataBindAdapter.notifyBinderItemRangeChanged(this, positionStart, itemCount);
+        }
     }
 
-    public final void notifyBinderItemInserted(int position) {
-        dataBindAdapter.notifyBinderItemInserted(this, position);
+    protected void notifyBinderItemInserted(int position) {
+        if (this.dataBindAdapter != null) {
+            this.dataBindAdapter.notifyBinderItemInserted(this, position);
+        }
     }
 
-    public final void notifyBinderItemMoved(int fromPosition, int toPosition) {
-        dataBindAdapter.notifyBinderItemMoved(this, fromPosition, toPosition);
+    protected void notifyBinderItemMoved(int fromPosition, int toPosition) {
+        if (this.dataBindAdapter != null) {
+            this.dataBindAdapter.notifyBinderItemMoved(this, fromPosition, toPosition);
+        }
     }
 
-    public final void notifyBinderItemRangeInserted(int positionStart, int itemCount) {
-        dataBindAdapter.notifyBinderItemRangeInserted(this, positionStart, itemCount);
+    protected void notifyBinderItemRangeInserted(int positionStart, int itemCount) {
+        if (this.dataBindAdapter != null) {
+            this.dataBindAdapter.notifyBinderItemRangeInserted(this, positionStart, itemCount);
+        }
     }
 
-    public final void notifyBinderItemRemoved(int position) {
-        dataBindAdapter.notifyBinderItemRemoved(this, position);
+    protected void notifyBinderItemRemoved(int position) {
+        if (this.dataBindAdapter != null) {
+            this.dataBindAdapter.notifyBinderItemRemoved(this, position);
+        }
     }
 
-    public final void notifyBinderItemRangeRemoved(int positionStart, int itemCount) {
-        dataBindAdapter.notifyBinderItemRangeRemoved(this, positionStart, itemCount);
+    protected void notifyBinderItemRangeRemoved(int positionStart, int itemCount) {
+        if (this.dataBindAdapter != null) {
+            this.dataBindAdapter.notifyBinderItemRangeRemoved(this, positionStart, itemCount);
+        }
     }
 
 }

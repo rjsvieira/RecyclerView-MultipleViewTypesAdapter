@@ -17,9 +17,11 @@ public class ListBindAdapter extends DataBindAdapter {
     @Override
     public int getItemCount() {
         int itemCount = 0;
-        for (int i = 0, size = binderList.size(); i < size; i++) {
-            DataBinder binder = binderList.get(i);
-            itemCount += binder.getItemCount();
+        if (this.binderList != null && !this.binderList.isEmpty()) {
+            for (int i = 0, size = binderList.size(); i < size; i++) {
+                DataBinder binder = binderList.get(i);
+                itemCount += binder.getItemCount();
+            }
         }
         return itemCount;
     }
@@ -27,42 +29,46 @@ public class ListBindAdapter extends DataBindAdapter {
     @Override
     public int getItemViewType(int position) {
         int itemCount = 0;
-        for (int viewType = 0, size = binderList.size(); viewType < size; viewType++) {
-            itemCount += binderList.get(viewType).getItemCount();
-            if (position < itemCount) {
-                return viewType;
+        if (this.binderList != null && !this.binderList.isEmpty()) {
+            for (int viewType = 0, size = binderList.size(); viewType < size; viewType++) {
+                itemCount += binderList.get(viewType).getItemCount();
+                if (position < itemCount) {
+                    return viewType;
+                }
             }
-        }
-        throw new IllegalArgumentException("arg position is invalid");
-    }
-
-    @Override
-    public <T extends DataBinder> T getDataBinder(int viewType) {
-        return (T) binderList.get(viewType);
-    }
-
-    @Override
-    public int getPosition(DataBinder binder, int binderPosition) {
-        int viewType = binderList.indexOf(binder);
-        if (viewType < 0) {
-            throw new IllegalStateException("binder does not exist in adapter");
-        }
-        int position = binderPosition;
-        for (int i = 0; i < viewType; i++) {
-            position += binderList.get(i).getItemCount();
         }
         return position;
     }
 
     @Override
-    public int getBinderPosition(int position) {
-        int binderItemCount;
-        for (int i = 0, size = binderList.size(); i < size; i++) {
-            binderItemCount = binderList.get(i).getItemCount();
-            if (position - binderItemCount < 0) {
-                break;
+    public <T extends DataBinder> T getDataBinder(int viewType) {
+        return binderList != null ? (T) binderList.get(viewType) : null;
+    }
+
+    @Override
+    public int getPosition(DataBinder binder, int binderPosition) {
+        if (this.binderList != null) {
+            int viewType = binderList.indexOf(binder);
+            int position = binderPosition;
+            for (int i = 0; i < viewType; i++) {
+                position += binderList.get(i).getItemCount();
             }
-            position -= binderItemCount;
+            return position;
+        }
+        return binderPosition;
+    }
+
+    @Override
+    public int getBinderPosition(int position) {
+        if (this.binderList != null) {
+            int binderItemCount;
+            for (int i = 0, size = binderList.size(); i < size; i++) {
+                binderItemCount = binderList.get(i).getItemCount();
+                if (position - binderItemCount < 0) {
+                    break;
+                }
+                position -= binderItemCount;
+            }
         }
         return position;
     }
@@ -82,19 +88,33 @@ public class ListBindAdapter extends DataBindAdapter {
         notifyItemRangeRemoved(getPosition(binder, positionStart), itemCount);
     }
 
+    @Override
+    protected void clearDataBinderAdapter() {
+        if (this.binderList != null) {
+            this.binderList.clear();
+        }
+    }
+
     public List<DataBinder> getBinderList() {
         return binderList;
     }
 
     public void addBinder(DataBinder binder) {
-        binderList.add(binder);
+        if (this.binderList != null && binder != null) {
+            binderList.add(binder);
+        }
     }
 
     public void addAllBinder(List<DataBinder> dataSet) {
-        binderList.addAll(dataSet);
+        if (this.binderList != null && dataSet != null) {
+            binderList.addAll(dataSet);
+        }
     }
 
     public void addAllBinder(DataBinder... dataSet) {
-        binderList.addAll(Arrays.asList(dataSet));
+        if (this.binderList != null && dataSet != null) {
+            binderList.addAll(Arrays.asList(dataSet));
+        }
     }
+
 }
