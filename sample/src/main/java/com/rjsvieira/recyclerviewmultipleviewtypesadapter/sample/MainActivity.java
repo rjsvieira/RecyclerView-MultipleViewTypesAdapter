@@ -32,8 +32,7 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 1; i <= 4; i++) {
             SampleData data = new SampleData();
             data.mTitle = getString(R.string.title_type2);
-            data.mDrawableResId = getResources().getIdentifier(
-                    getString(R.string.drawable_animal_name, i), "drawable", getPackageName());
+            data.mDrawableResId = getResources().getIdentifier(getString(R.string.drawable_animal_name, i), "drawable", getPackageName());
             data.mContent = getString(R.string.content_type2, i);
             dataSet.add(data);
         }
