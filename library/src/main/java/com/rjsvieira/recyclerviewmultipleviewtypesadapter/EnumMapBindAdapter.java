@@ -82,7 +82,7 @@ public abstract class EnumMapBindAdapter<E extends Enum<E>> extends DataBindAdap
     }
 
     @Override
-    protected void clearDataBinderAdapter() {
+    public void clearDataBinderAdapter() {
         if (this.binderMap != null) {
             this.binderMap.clear();
         }
