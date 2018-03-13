@@ -89,7 +89,7 @@ public class ListBindAdapter extends DataBindAdapter {
     }
 
     @Override
-    protected void clearDataBinderAdapter() {
+    public void clearDataBinderAdapter() {
         if (this.binderList != null) {
             this.binderList.clear();
         }
