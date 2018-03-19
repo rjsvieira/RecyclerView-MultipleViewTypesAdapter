@@ -1,0 +1,16 @@
+ext {
+
+    // #1 - Project Level Versions
+    compileSdkVersion = 27
+    buildToolsVersion = "27.0.3"
+    minSdkVersion = 19
+    targetSdkVersion = 27
+
+    // #2 - Library Versions
+    supportLibraryVersion = "27.1.0"
+
+    // #3 - Dependencies
+    appCompatDependency = "com.android.support:appcompat-v7:" + supportLibraryVersion
+    recyclerViewDependency = "com.android.support:recyclerview-v7:"+ supportLibraryVersion
+
+}
