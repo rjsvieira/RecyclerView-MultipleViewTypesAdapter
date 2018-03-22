@@ -89,10 +89,11 @@ public class ListBindAdapter extends DataBindAdapter {
     }
 
     @Override
-    public void clearDataBinderAdapter() {
+    public DataBindAdapter clearDataBinderAdapter() {
         if (this.binderList != null) {
             this.binderList.clear();
         }
+        return this;
     }
 
     public List<DataBinder> getBinderList() {

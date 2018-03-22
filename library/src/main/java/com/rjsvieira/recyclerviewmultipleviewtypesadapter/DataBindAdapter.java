@@ -56,5 +56,5 @@ public abstract class DataBindAdapter extends RecyclerView.Adapter<RecyclerView.
 
     protected abstract void notifyBinderItemRangeRemoved(DataBinder binder, int positionStart, int itemCount);
 
-    public abstract void clearDataBinderAdapter();
+    public abstract DataBindAdapter clearDataBinderAdapter();
 }

@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 public abstract class DataBinder<T extends RecyclerView.ViewHolder> {
 
     private DataBindAdapter dataBindAdapter;
+    protected int itemPosition;
 
     protected DataBinder(DataBindAdapter dataBindAdapter) {
         this.dataBindAdapter = dataBindAdapter;

@@ -82,10 +82,11 @@ public abstract class EnumMapBindAdapter<E extends Enum<E>> extends DataBindAdap
     }
 
     @Override
-    public void clearDataBinderAdapter() {
+    public DataBindAdapter clearDataBinderAdapter() {
         if (this.binderMap != null) {
             this.binderMap.clear();
         }
+        return this;
     }
 
     public abstract E getEnumFromPosition(int position);
