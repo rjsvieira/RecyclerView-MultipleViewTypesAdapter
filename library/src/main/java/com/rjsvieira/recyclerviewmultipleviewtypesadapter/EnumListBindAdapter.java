@@ -12,4 +12,10 @@ public abstract class EnumListBindAdapter<E extends Enum<E>> extends ListBindAda
         return getDataBinder(e.ordinal());
     }
 
+    @Override
+    public EnumListBindAdapter clearDataBinderAdapter() {
+        super.clearDataBinderAdapter();
+        return this;
+    }
+
 }
