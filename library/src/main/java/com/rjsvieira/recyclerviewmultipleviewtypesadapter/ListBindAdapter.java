@@ -12,7 +12,7 @@ import java.util.List;
 
 public class ListBindAdapter extends DataBindAdapter {
 
-    private List<DataBinder> binderList = new ArrayList<>();
+    private ArrayList<DataBinder> binderList = new ArrayList<>();
 
     @Override
     public int getItemCount() {
@@ -98,6 +98,15 @@ public class ListBindAdapter extends DataBindAdapter {
 
     public List<DataBinder> getBinderList() {
         return binderList;
+    }
+
+    public void removeRange(int start, int end) {
+        boolean isAllowed = this.binderList != null && end >= start && this.binderList.size() > end;
+        if (isAllowed) {
+            for (int i = end; i >= start; i--) {
+                this.binderList.remove(i);
+            }
+        }
     }
 
     public void addBinder(DataBinder binder) {
