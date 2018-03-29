@@ -109,6 +109,12 @@ public class ListBindAdapter extends DataBindAdapter {
         }
     }
 
+    public void removeBinder(DataBinder binder){
+        if (this.binderList != null && binder != null) {
+            binderList.remove(binder);
+        }
+    }
+
     public void addBinder(DataBinder binder) {
         if (this.binderList != null && binder != null) {
             binderList.add(binder);
