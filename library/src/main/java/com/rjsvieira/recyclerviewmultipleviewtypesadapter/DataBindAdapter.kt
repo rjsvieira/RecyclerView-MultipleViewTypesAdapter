@@ -13,19 +13,19 @@ import android.view.ViewGroup
 abstract class DataBindAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return getDataBinder<DataBinder>(viewType).newViewHolder(parent)
+        return getDataBinder(viewType).newViewHolder(parent)
     }
 
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
         val binderPosition = getBinderPosition(position)
-        getDataBinder<DataBinder>(viewHolder.itemViewType).bindViewHolder(viewHolder, binderPosition)
+        getDataBinder(viewHolder.itemViewType).bindViewHolder(viewHolder, binderPosition)
     }
 
     abstract override fun getItemCount(): Int
 
     abstract override fun getItemViewType(position: Int): Int
 
-    protected abstract fun <T : DataBinder<*>> getDataBinder(viewType: Int): T?
+    protected abstract fun getDataBinder(viewType: Int): DataBinder<RecyclerView.ViewHolder>
 
     protected abstract fun getPosition(binder: DataBinder<*>, binderPosition: Int): Int
 
