@@ -15,9 +15,9 @@ abstract class DataBinder<T : RecyclerView.ViewHolder> protected constructor(pri
     protected var itemPosition: Int = 0
     abstract val itemCount: Int
 
-    protected abstract fun newViewHolder(parent: ViewGroup): T
+    abstract fun newViewHolder(parent: ViewGroup): T
 
-    protected abstract fun bindViewHolder(holder: T, position: Int)
+    abstract fun bindViewHolder(holder: T, position: Int)
 
     protected fun notifyDataSetChanged() {
         if (this.dataBindAdapter != null) {
