@@ -1,5 +1,6 @@
 package com.rjsvieira.recyclerviewmultipleviewtypesadapter
 
+import android.support.v7.widget.RecyclerView
 import java.util.*
 
 /**
@@ -11,7 +12,7 @@ import java.util.*
 
 open class ListBindAdapter : DataBindAdapter() {
 
-    private val binderList = ArrayList<DataBinder<*>>()
+    private val binderList = ArrayList<DataBinder<RecyclerView.ViewHolder>>()
 
     override fun getItemCount(): Int {
         var itemCount = 0
@@ -43,9 +44,7 @@ open class ListBindAdapter : DataBindAdapter() {
         return position
     }
 
-    override fun <T : DataBinder<*>> getDataBinder(viewType: Int): T? {
-        return if (binderList != null) binderList[viewType] as T else null
-    }
+    override fun getDataBinder(viewType: Int): DataBinder<RecyclerView.ViewHolder> = binderList[viewType]
 
     public override fun getPosition(binder: DataBinder<*>, binderPosition: Int): Int {
         if (this.binderList != null) {
@@ -109,25 +108,25 @@ open class ListBindAdapter : DataBindAdapter() {
         }
     }
 
-    fun removeBinder(binder: DataBinder<*>?) {
+    fun removeBinder(binder: DataBinder<RecyclerView.ViewHolder>?) {
         if (this.binderList != null && binder != null) {
             binderList.remove(binder)
         }
     }
 
-    fun addBinder(binder: DataBinder<*>?) {
+    fun addBinder(binder: DataBinder<RecyclerView.ViewHolder>?) {
         if (this.binderList != null && binder != null) {
             binderList.add(binder)
         }
     }
 
-    fun addAllBinder(dataSet: List<DataBinder<*>>?) {
+    fun addAllBinder(dataSet: List<DataBinder<RecyclerView.ViewHolder>>?) {
         if (this.binderList != null && dataSet != null) {
             binderList.addAll(dataSet)
         }
     }
 
-    fun addAllBinder(vararg dataSet: DataBinder<*>) {
+    fun addAllBinder(vararg dataSet: DataBinder<RecyclerView.ViewHolder>) {
         if (this.binderList != null && dataSet != null) {
             binderList.addAll(Arrays.asList(*dataSet))
         }
