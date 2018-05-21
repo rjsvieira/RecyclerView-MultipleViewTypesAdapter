@@ -1,6 +1,6 @@
 package com.rjsvieira.recyclerviewmultipleviewtypesadapter
 
-import android.support.v7.widget.RecyclerView
+import com.rjsvieira.recyclerviewmultipleviewtypesadapter.views.BaseViewHolder
 import java.util.*
 
 /**
@@ -12,11 +12,11 @@ import java.util.*
 
 open class ListBindAdapter : DataBindAdapter() {
 
-    private val binderList = ArrayList<DataBinder<RecyclerView.ViewHolder>>()
+    private val binderList = ArrayList<DataBinder<BaseViewHolder>>()
 
     override fun getItemCount(): Int {
         var itemCount = 0
-        if (this.binderList != null && !this.binderList.isEmpty()) {
+        if (!this.binderList.isEmpty()) {
             var i = 0
             val size = binderList.size
             while (i < size) {
@@ -30,7 +30,7 @@ open class ListBindAdapter : DataBindAdapter() {
 
     override fun getItemViewType(position: Int): Int {
         var itemCount = 0
-        if (this.binderList != null && !this.binderList.isEmpty()) {
+        if (!this.binderList.isEmpty()) {
             var viewType = 0
             val size = binderList.size
             while (viewType < size) {
@@ -44,36 +44,27 @@ open class ListBindAdapter : DataBindAdapter() {
         return position
     }
 
-    override fun getDataBinder(viewType: Int): DataBinder<RecyclerView.ViewHolder> = binderList[viewType]
+    override fun getDataBinder(viewType: Int): DataBinder<BaseViewHolder> = binderList[viewType]
 
     public override fun getPosition(binder: DataBinder<*>, binderPosition: Int): Int {
-        if (this.binderList != null) {
-            val viewType = binderList.indexOf(binder)
-            var position = binderPosition
-            for (i in 0 until viewType) {
-                position += binderList[i].itemCount
-            }
-            return position
-        }
-        return binderPosition
+        val viewType = binderList.indexOf(binder)
+        return binderPosition + (0 until viewType).sumBy { binderList[it].itemCount }
     }
 
     public override fun getBinderPosition(position: Int): Int {
-        var position = position
-        if (this.binderList != null) {
-            var binderItemCount: Int
-            var i = 0
-            val size = binderList.size
-            while (i < size) {
-                binderItemCount = binderList[i].itemCount
-                if (position - binderItemCount < 0) {
-                    break
-                }
-                position -= binderItemCount
-                i++
+        var newPosition = position
+        var binderItemCount: Int
+        var i = 0
+        val size = binderList.size
+        while (i < size) {
+            binderItemCount = binderList[i].itemCount
+            if (newPosition - binderItemCount < 0) {
+                break
             }
+            newPosition -= binderItemCount
+            i++
         }
-        return position
+        return newPosition
     }
 
     override fun notifyBinderItemRangeChanged(binder: DataBinder<*>, positionStart: Int, itemCount: Int) {
@@ -89,18 +80,16 @@ open class ListBindAdapter : DataBindAdapter() {
     }
 
     override fun clearDataBinderAdapter(): ListBindAdapter {
-        if (this.binderList != null) {
-            this.binderList.clear()
-        }
+        this.binderList.clear()
         return this
     }
 
-    fun getBinderList(): List<DataBinder<*>> {
+    fun getBinderList(): List<DataBinder<BaseViewHolder>> {
         return binderList
     }
 
     fun removeRange(start: Int, end: Int) {
-        val isAllowed = this.binderList != null && end >= start && this.binderList.size > end
+        val isAllowed = end >= start && this.binderList.size > end
         if (isAllowed) {
             for (i in end downTo start) {
                 this.binderList.removeAt(i)
@@ -108,28 +97,26 @@ open class ListBindAdapter : DataBindAdapter() {
         }
     }
 
-    fun removeBinder(binder: DataBinder<RecyclerView.ViewHolder>?) {
-        if (this.binderList != null && binder != null) {
+    fun removeBinder(binder: DataBinder<BaseViewHolder>?) {
+        if (binder != null) {
             binderList.remove(binder)
         }
     }
 
-    fun addBinder(binder: DataBinder<RecyclerView.ViewHolder>?) {
-        if (this.binderList != null && binder != null) {
+    fun addBinder(binder: DataBinder<BaseViewHolder>?) {
+        if (binder != null) {
             binderList.add(binder)
         }
     }
 
-    fun addAllBinder(dataSet: List<DataBinder<RecyclerView.ViewHolder>>?) {
-        if (this.binderList != null && dataSet != null) {
+    fun addAllBinder(dataSet: List<DataBinder<BaseViewHolder>>?) {
+        if (dataSet != null) {
             binderList.addAll(dataSet)
         }
     }
 
-    fun addAllBinder(vararg dataSet: DataBinder<RecyclerView.ViewHolder>) {
-        if (this.binderList != null && dataSet != null) {
-            binderList.addAll(Arrays.asList(*dataSet))
-        }
+    fun addAllBinder(vararg dataSet: DataBinder<BaseViewHolder>) {
+        binderList.addAll(Arrays.asList(*dataSet))
     }
 
 }

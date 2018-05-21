@@ -1,7 +1,7 @@
 package com.rjsvieira.recyclerviewmultipleviewtypesadapter
 
-import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
+import com.rjsvieira.recyclerviewmultipleviewtypesadapter.views.BaseViewHolder
 
 /**
  * Class for binding view and data
@@ -10,14 +10,14 @@ import android.view.ViewGroup
  * Created by yqritc on 2015/03/01, modified by rjsvieira.
  */
 
-abstract class DataBinder<T : RecyclerView.ViewHolder> protected constructor(private val dataBindAdapter: DataBindAdapter?) {
+abstract class DataBinder<T : BaseViewHolder> protected constructor(private val dataBindAdapter: DataBindAdapter?) {
 
     protected var itemPosition: Int = 0
     abstract val itemCount: Int
 
-    abstract fun newViewHolder(parent: ViewGroup): T
+    abstract fun newViewHolder(parent: ViewGroup): BaseViewHolder
 
-    abstract fun bindViewHolder(holder: T, position: Int)
+    abstract fun bindViewHolder(holder: BaseViewHolder, position: Int)
 
     protected fun notifyDataSetChanged() {
         if (this.dataBindAdapter != null) {

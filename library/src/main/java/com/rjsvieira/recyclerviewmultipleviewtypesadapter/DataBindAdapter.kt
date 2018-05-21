@@ -2,6 +2,7 @@ package com.rjsvieira.recyclerviewmultipleviewtypesadapter
 
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
+import com.rjsvieira.recyclerviewmultipleviewtypesadapter.views.BaseViewHolder
 
 /**
  * Adapter class for managing a set of data binders
@@ -10,13 +11,13 @@ import android.view.ViewGroup
  * Created by yqritc on 2015/03/01, modified by rjsvieira.
  */
 
-abstract class DataBindAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+abstract class DataBindAdapter : RecyclerView.Adapter<BaseViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         return getDataBinder(viewType).newViewHolder(parent)
     }
 
-    override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(viewHolder: BaseViewHolder, position: Int) {
         val binderPosition = getBinderPosition(position)
         getDataBinder(viewHolder.itemViewType).bindViewHolder(viewHolder, binderPosition)
     }
@@ -25,7 +26,7 @@ abstract class DataBindAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>()
 
     abstract override fun getItemViewType(position: Int): Int
 
-    protected abstract fun getDataBinder(viewType: Int): DataBinder<RecyclerView.ViewHolder>
+    protected abstract fun getDataBinder(viewType: Int): DataBinder<BaseViewHolder>
 
     protected abstract fun getPosition(binder: DataBinder<*>, binderPosition: Int): Int
 
