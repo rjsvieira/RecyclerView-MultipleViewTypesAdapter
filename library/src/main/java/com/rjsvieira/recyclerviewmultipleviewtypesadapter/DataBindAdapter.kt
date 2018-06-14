@@ -18,8 +18,7 @@ abstract class DataBindAdapter : RecyclerView.Adapter<BaseViewHolder>() {
     }
 
     override fun onBindViewHolder(viewHolder: BaseViewHolder, position: Int) {
-        val binderPosition = getBinderPosition(position)
-        getDataBinder(viewHolder.itemViewType).bindViewHolder(viewHolder, binderPosition)
+        getDataBinder(viewHolder.itemViewType).bindViewHolder(viewHolder, position)
     }
 
     abstract override fun getItemCount(): Int
@@ -28,28 +27,24 @@ abstract class DataBindAdapter : RecyclerView.Adapter<BaseViewHolder>() {
 
     protected abstract fun getDataBinder(viewType: Int): DataBinder<BaseViewHolder>
 
-    protected abstract fun getPosition(binder: DataBinder<*>, binderPosition: Int): Int
-
-    protected abstract fun getBinderPosition(position: Int): Int
-
     fun notifyBinderItemChanged(binder: DataBinder<*>, binderPosition: Int) {
-        notifyItemChanged(getPosition(binder, binderPosition))
+        notifyItemChanged(binderPosition)
     }
 
     abstract fun notifyBinderItemRangeChanged(binder: DataBinder<*>, positionStart: Int, itemCount: Int)
 
     fun notifyBinderItemInserted(binder: DataBinder<*>, binderPosition: Int) {
-        notifyItemInserted(getPosition(binder, binderPosition))
+        notifyItemInserted(binderPosition)
     }
 
     fun notifyBinderItemMoved(binder: DataBinder<*>, fromPosition: Int, toPosition: Int) {
-        notifyItemMoved(getPosition(binder, fromPosition), getPosition(binder, toPosition))
+        notifyItemMoved(fromPosition, toPosition)
     }
 
     abstract fun notifyBinderItemRangeInserted(binder: DataBinder<*>, positionStart: Int, itemCount: Int)
 
     fun notifyBinderItemRemoved(binder: DataBinder<*>, binderPosition: Int) {
-        notifyItemRemoved(getPosition(binder, binderPosition))
+        notifyItemRemoved(binderPosition)
     }
 
     abstract fun notifyBinderItemRangeRemoved(binder: DataBinder<*>, positionStart: Int, itemCount: Int)

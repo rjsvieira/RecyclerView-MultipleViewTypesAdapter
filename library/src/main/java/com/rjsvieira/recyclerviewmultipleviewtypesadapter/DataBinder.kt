@@ -13,7 +13,6 @@ import com.rjsvieira.recyclerviewmultipleviewtypesadapter.views.BaseViewHolder
 abstract class DataBinder<T : BaseViewHolder> protected constructor(private val dataBindAdapter: DataBindAdapter?) {
 
     protected var itemPosition: Int = 0
-    abstract val itemCount: Int
 
     abstract fun newViewHolder(parent: ViewGroup): BaseViewHolder
 
@@ -26,10 +25,10 @@ abstract class DataBinder<T : BaseViewHolder> protected constructor(private val 
     }
 
     protected fun notifyBinderDataSetChanged() {
-        notifyBinderItemRangeChanged(0, itemCount)
+        notifyBinderItemRangeChanged(0, itemPosition)
     }
 
-    protected fun notifyBinderItemChanged(position: Int) {
+    fun notifyBinderItemChanged(position: Int) {
         if (this.dataBindAdapter != null) {
             this.dataBindAdapter.notifyBinderItemChanged(this, position)
         }
@@ -71,4 +70,9 @@ abstract class DataBinder<T : BaseViewHolder> protected constructor(private val 
         }
     }
 
+    fun setItemId(itemPosition: Int) {
+        this.itemPosition = itemPosition
+    }
+
+    fun getPosition() : Int = this.itemPosition
 }

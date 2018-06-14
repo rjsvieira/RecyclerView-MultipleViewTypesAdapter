@@ -15,68 +15,37 @@ open class ListBindAdapter : DataBindAdapter() {
     private val binderList = ArrayList<DataBinder<BaseViewHolder>>()
 
     override fun getItemCount(): Int {
-        var itemCount = 0
-        if (!this.binderList.isEmpty()) {
-            var i = 0
-            val size = binderList.size
-            while (i < size) {
-                val binder = binderList[i]
-                itemCount += binder.itemCount
-                i++
-            }
-        }
-        return itemCount
+        return binderList.size
+    }
+
+    /**
+     * Return the stable ID for the item at `position`. If [.hasStableIds]
+     * would return false this method should return [.NO_ID]. The default implementation
+     * of this method returns [.NO_ID].
+     *
+     * @param position Adapter position to query
+     * @return the stable ID of the item at position
+     */
+    override fun getItemId(position: Int): Long {
+        return (this.hashCode()+position).toLong()
     }
 
     override fun getItemViewType(position: Int): Int {
-        var itemCount = 0
-        if (!this.binderList.isEmpty()) {
-            var viewType = 0
-            val size = binderList.size
-            while (viewType < size) {
-                itemCount += binderList[viewType].itemCount
-                if (position < itemCount) {
-                    return viewType
-                }
-                viewType++
-            }
-        }
         return position
     }
 
     override fun getDataBinder(viewType: Int): DataBinder<BaseViewHolder> = binderList[viewType]
 
-    public override fun getPosition(binder: DataBinder<*>, binderPosition: Int): Int {
-        val viewType = binderList.indexOf(binder)
-        return binderPosition + (0 until viewType).sumBy { binderList[it].itemCount }
-    }
-
-    public override fun getBinderPosition(position: Int): Int {
-        var newPosition = position
-        var binderItemCount: Int
-        var i = 0
-        val size = binderList.size
-        while (i < size) {
-            binderItemCount = binderList[i].itemCount
-            if (newPosition - binderItemCount < 0) {
-                break
-            }
-            newPosition -= binderItemCount
-            i++
-        }
-        return newPosition
-    }
-
     override fun notifyBinderItemRangeChanged(binder: DataBinder<*>, positionStart: Int, itemCount: Int) {
-        notifyItemRangeChanged(getPosition(binder, positionStart), itemCount)
+        notifyItemRangeChanged(positionStart, itemCount)
     }
 
     override fun notifyBinderItemRangeInserted(binder: DataBinder<*>, positionStart: Int, itemCount: Int) {
-        notifyItemRangeInserted(getPosition(binder, positionStart), itemCount)
+        notifyItemRangeInserted(positionStart, itemCount)
     }
 
     override fun notifyBinderItemRangeRemoved(binder: DataBinder<*>, positionStart: Int, itemCount: Int) {
-        notifyItemRangeRemoved(getPosition(binder, positionStart), itemCount)
+        notifyItemRangeRemoved(positionStart, itemCount)
     }
 
     override fun clearDataBinderAdapter(): ListBindAdapter {
@@ -106,6 +75,7 @@ open class ListBindAdapter : DataBindAdapter() {
     fun addBinder(binder: DataBinder<BaseViewHolder>?) {
         if (binder != null) {
             binderList.add(binder)
+            binder.setItemId(binderList.size - 1)
         }
     }
 
