@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import com.rjsvieira.recyclerviewmultipleviewtypesadapter.sample.adapter.SampleEnumMapAdapter
+import com.rjsvieira.recyclerviewmultipleviewtypesadapter.sample.adapter.SampleListAdapter
 import java.util.*
 
 
@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val recyclerView = findViewById<View>(R.id.recyclerview_main) as RecyclerView
-        val adapter = SampleEnumMapAdapter()
+        val adapter = SampleListAdapter()
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
 

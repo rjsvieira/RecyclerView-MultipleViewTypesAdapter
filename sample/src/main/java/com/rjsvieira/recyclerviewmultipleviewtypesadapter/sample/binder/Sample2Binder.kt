@@ -12,10 +12,9 @@ import com.rjsvieira.recyclerviewmultipleviewtypesadapter.sample.SampleData
 import com.rjsvieira.recyclerviewmultipleviewtypesadapter.views.BaseViewHolder
 import java.util.*
 
-class Sample2Binder(dataBindAdapter: DataBindAdapter) : DataBinder<BaseViewHolder>(dataBindAdapter) {
+class Sample2Binder(var dataBindAdapter: DataBindAdapter) : DataBinder<BaseViewHolder>(dataBindAdapter) {
 
     private val mDataSet = ArrayList<SampleData>()
-    override val itemCount: Int get() = mDataSet.size
 
     private lateinit var rootView: View
     private lateinit var titleText: TextView
@@ -40,12 +39,12 @@ class Sample2Binder(dataBindAdapter: DataBindAdapter) : DataBinder<BaseViewHolde
 
     fun addAll(dataSet: List<SampleData>) {
         mDataSet.addAll(dataSet)
-        notifyBinderDataSetChanged()
+        dataBindAdapter.notifyDataSetChanged()
     }
 
     fun clear() {
         mDataSet.clear()
-        notifyBinderDataSetChanged()
+        dataBindAdapter.notifyDataSetChanged()
     }
 
 }

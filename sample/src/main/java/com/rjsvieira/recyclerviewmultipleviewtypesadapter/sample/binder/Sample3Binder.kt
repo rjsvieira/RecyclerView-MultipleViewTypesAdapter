@@ -20,7 +20,6 @@ class Sample3Binder(dataBindAdapter: DataBindAdapter) : DataBinder<BaseViewHolde
     private lateinit var titleText: TextView
     private lateinit var imageView: ImageView
     private lateinit var content: TextView
-    override val itemCount: Int get() = 1
 
     override fun newViewHolder(parent: ViewGroup): BaseViewHolder {
         this.rootView = LayoutInflater.from(parent.context).inflate(R.layout.layout_sample3, parent, false)
